@@ -1,5 +1,7 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.1.10"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+    `maven-publish`
 }
 
 group = "mc.fuckoka"
@@ -40,12 +42,18 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("mc.fuckoka:command-framework:1.0.2")
+    compileOnly("mc.fuckoka:db-connector:1.2.2")
+    compileOnly("mc.fuckoka:economy-api:0.1.0")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
+val targetJavaVersion = 21
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(targetJavaVersion)
+}
+
+tasks.build {
+    dependsOn("shadowJar")
 }

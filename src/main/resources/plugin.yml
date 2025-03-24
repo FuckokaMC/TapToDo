@@ -1,0 +1,23 @@
+name: TapToDo
+version: 1.0.0
+main: mc.fuckoka.taptodo.TapToDo
+description: ブロックにコマンドを埋め込む
+author: deceitya
+website: https://github.com/FuckokaMC/TapToDo
+api-version: 1.21
+load: POSTWORLD
+depend:
+  - CommandFramework
+  - DBConnector
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:2.1.10
+permissions:
+  taptodo.commands.taptodo:
+    default: op
+commands:
+  ttd:
+    description: TapToDo管理コマンド
+    permission: taptodo.commands.taptodo
+    usage: /taptodo <add|del|delall|list>
+    aliases:
+      - ttd

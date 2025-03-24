@@ -32,13 +32,6 @@ repositories {
             password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
         }
     }
-    maven {
-        url = uri("https://maven.pkg.github.com/fuckokamc/EconomyAPI")
-        credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-            password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
 }
 
 dependencies {
@@ -46,7 +39,6 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("mc.fuckoka:command-framework:1.0.2")
     compileOnly("mc.fuckoka:db-connector:1.2.2")
-    compileOnly("mc.fuckoka:economy-api:0.1.0")
 }
 
 val targetJavaVersion = 21

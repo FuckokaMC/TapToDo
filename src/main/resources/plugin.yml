@@ -15,9 +15,9 @@ permissions:
   taptodo.commands.taptodo:
     default: op
 commands:
-  ttd:
+  taptodo:
     description: TapToDo管理コマンド
     permission: taptodo.commands.taptodo
-    usage: /taptodo <add|del|delall|list>
+    usage: /taptodo <add|del|list>
     aliases:
       - ttd

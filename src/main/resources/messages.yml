@@ -1,0 +1,14 @@
+help:
+  header: "------- TapToDo -------"
+  add: "追加: /ttd add <コマンド>"
+  delete: "削除: /ttd del [コマンド]"
+  list: "一覧: /ttd list"
+only-player: プレイヤーのみ実行可能です。
+added: コマンドを設定しました。
+deleted: コマンドを削除しました。
+list: "[%d] %s"
+no-command: このブロックには削除対象のコマンドが設定されていません。
+interact-block:
+  add: コマンドを設定するブロックに触れてください。
+  delete: コマンドを削除するブロックに触れてください。
+  list: コマンドの一覧を表示するブロックに触れてください。

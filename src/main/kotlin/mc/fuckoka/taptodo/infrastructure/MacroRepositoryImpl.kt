@@ -90,7 +90,7 @@ class MacroRepositoryImpl : MacroRepository {
             """.trimMargin()
         )
         stmt.use {
-            stmt.setInt(1,  macro.position.x)
+            stmt.setInt(1, macro.position.x)
             stmt.setInt(2, macro.position.y)
             stmt.setInt(3, macro.position.z)
             stmt.setString(4, macro.position.world)

@@ -17,7 +17,7 @@ class AddCommand(private val plugin: TapToDo) : SubCommandBase("add", "taptodo.c
         if (args.isEmpty()) return false
 
         InteractListener.listenAdd(sender.entityId, args.joinToString(" "))
-        sender.sendMessage(plugin.messages.getString("interact-block")!!)
+        sender.sendMessage(plugin.messages.getString("interact-block.add")!!)
 
         return true
     }

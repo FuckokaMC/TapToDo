@@ -77,6 +77,12 @@ class InteractListener(private val plugin: TapToDo, private val repository: Macr
             listenList.contains(entityId) -> {
                 listenList.remove(entityId)
                 val macros = FindMacroUseCase(repository).execute(block.x, block.y, block.z, block.world.name)
+
+                if (macros.isEmpty()) {
+                    player.sendMessage(plugin.messages.getString("no-command")!!)
+                    return
+                }
+
                 macros.values.forEachIndexed { index, command ->
                     player.sendMessage(plugin.messages.getString("list")!!.format(index + 1, command))
                 }

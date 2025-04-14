@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender
 
 class TapToDoCommand(private val plugin: TapToDo) : CommandBase() {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: List<String>): Boolean {
-        arrayOf("help.header", "help.add", "help.delete", "help.delete-all", "help.list").forEach {
+        arrayOf("help.header", "help.add", "help.delete", "help.list").forEach {
             sender.sendMessage(plugin.messages.getString(it)!!)
         }
         return true

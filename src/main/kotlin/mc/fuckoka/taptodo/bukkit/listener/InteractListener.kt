@@ -5,10 +5,13 @@ import mc.fuckoka.taptodo.application.AddMacroUseCase
 import mc.fuckoka.taptodo.application.DeleteMacroUseCase
 import mc.fuckoka.taptodo.application.FindMacroUseCase
 import mc.fuckoka.taptodo.domain.MacroRepository
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.EquipmentSlot
 
 class InteractListener(private val plugin: TapToDo, private val repository: MacroRepository) : Listener {
     companion object {
@@ -37,6 +40,8 @@ class InteractListener(private val plugin: TapToDo, private val repository: Macr
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onInteract(event: PlayerInteractEvent) {
+        if (event.action != Action.RIGHT_CLICK_BLOCK || event.hand != EquipmentSlot.HAND) return
+
         val block = event.clickedBlock ?: return
         val player = event.player
         val entityId = player.entityId
@@ -57,6 +62,12 @@ class InteractListener(private val plugin: TapToDo, private val repository: Macr
                 var macros = FindMacroUseCase(repository).execute(block.x, block.y, block.z, block.world.name)
                 if (listenDelete[entityId] != null) macros = macros.filter { it.value == listenDelete[entityId] }
                 listenDelete.remove(entityId)
+
+                if (macros.isEmpty()) {
+                    player.sendMessage(plugin.messages.getString("no-command")!!)
+                    return
+                }
+
                 macros.forEach {
                     DeleteMacroUseCase(repository).execute(it.key)
                 }
@@ -67,14 +78,14 @@ class InteractListener(private val plugin: TapToDo, private val repository: Macr
                 listenList.remove(entityId)
                 val macros = FindMacroUseCase(repository).execute(block.x, block.y, block.z, block.world.name)
                 macros.values.forEachIndexed { index, command ->
-                    player.sendMessage(plugin.messages.getString("list")!!.format(index, command))
+                    player.sendMessage(plugin.messages.getString("list")!!.format(index + 1, command))
                 }
             }
 
             else -> {
                 val macros = FindMacroUseCase(repository).execute(block.x, block.y, block.z, block.world.name)
                 macros.values.forEach {
-                    player.server.dispatchCommand(player, it)
+                    Bukkit.dispatchCommand(player, it)
                 }
             }
         }
